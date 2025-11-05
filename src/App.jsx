@@ -5,6 +5,16 @@ function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const addTask = () => {
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  const deleteTask = (deleted) => {
+    const withoutRemoved = tasks.filter((item) => item !== deleted);
+    setTasks(withoutRemoved);
+  };
+
   return (
     <div id="container">
       <h3>Todos</h3>
@@ -21,7 +31,16 @@ function App() {
           }}
         />
       </form>
-      <ul></ul>
+      <ul>
+        {tasks.map((item) => (
+          <li>
+            {item}
+            <button className="delete-button" onClick={() => deleteTask(item)}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
